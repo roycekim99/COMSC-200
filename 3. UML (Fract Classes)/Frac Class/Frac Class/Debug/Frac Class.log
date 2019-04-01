@@ -1,0 +1,6 @@
+﻿  testFrac_starter.cpp
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\comsc200\m03\testfrac_starter.cpp(43): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\comsc200\m03\testfrac_starter.cpp(44): warning C4244: '=': conversion from 'float' to 'long', possible loss of data
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\comsc200\m03\testfrac_starter.cpp(61): warning C4101: 'conv': unreferenced local variable
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\comsc200\m03\testfrac_starter.cpp(294): warning C4305: 'initializing': truncation from 'double' to 'float'
+  Frac Class.vcxproj -> C:\Users\Cheeto\Documents\1 CODES\DVC\COMSC-200\3. UML (Fract Classes)\Frac Class\Debug\Frac Class.exe

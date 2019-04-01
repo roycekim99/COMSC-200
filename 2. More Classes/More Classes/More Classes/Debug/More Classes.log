@@ -1,0 +1,5 @@
+﻿  testAngle.cpp
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\2. more classes\more classes\more classes\angle.h(31): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\2. more classes\more classes\more classes\angle.h(32): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\2. more classes\more classes\more classes\angle.h(33): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  More Classes.vcxproj -> C:\Users\Cheeto\Documents\1 CODES\DVC\COMSC-200\2. More Classes\More Classes\Debug\More Classes.exe
