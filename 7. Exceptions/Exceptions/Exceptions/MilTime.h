@@ -40,18 +40,7 @@ public:
 
 MilTime::MilTime(int h = 0, int s = 0) : Time(0, 0, s)
 {
-    try {
-        MilTime::setTime(h, s);
-    }
-    catch (MilTime::invalHour) {
-        std::cout << "\033[1;31mHours must be in the range 0 - 2359.\n\033[0m";
-        milHours = 0;
-    }
-    catch (MilTime::invalSeconds) {
-        std::cout << "\033[1;31mSeconds must be in the range 0 - 59.\n\033[0m";
-        milSeconds = 0;
-    }
-
+    setTime(h, s);
     convert();
 }
 
