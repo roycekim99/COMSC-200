@@ -1,0 +1,4 @@
+﻿  main.cpp
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\comsc-200\9. linked list\linked list\linked list\main.cpp(38): warning C4101: 'pos': unreferenced local variable
+c:\users\cheeto\documents\1 codes\dvc\comsc-200\comsc-200\9. linked list\linked list\linked list\main.cpp(39): warning C4101: 'Queue_size': unreferenced local variable
+  Linked List.vcxproj -> C:\Users\Cheeto\Documents\1 CODES\DVC\COMSC-200\COMSC-200\9. Linked List\Linked List\Debug\Linked List.exe
