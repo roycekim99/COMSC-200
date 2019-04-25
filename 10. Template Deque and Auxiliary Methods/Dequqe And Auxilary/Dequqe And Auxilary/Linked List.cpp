@@ -1,8 +1,8 @@
 ///**********************************************************************************
-/// Description: Linked List Class
+/// Description: Deque Class Implementations
 /// Author: Royce Kim
 /// COMSC 200 Section 5001
-/// Date: April 15, 2019
+/// Date: April 20, 2019
 /// Status : Complete 
 ///***********************************************************************************
 
@@ -46,17 +46,14 @@ public:
     Deque() : head(nullptr), tail(nullptr), listSize(0) {}
 
     Deque(const Deque<T> & rhs) {   // copy constructor
-        head = rhs.get;
-        tail = rhs.tail;
-        listSize = rhs.size();
+        deepCopy(rhs);
     }
 
-    Deque(Deque<T> && rhs) {		// move constructor
-        while (!rhs->isEmpty()) {
-            pushTail(rhs->getFront());
-            rhs->popHead();
-        }
-    }
+    Deque(Deque<T> && rhs) {
+        swap(listSize, rhs.listSize);
+        swap(head, rhs.head);
+        swap(tail, rhs.tail);
+    } // move constructor
 
     ~Deque() {
         Node<T> *next = head;
@@ -285,8 +282,36 @@ public:
         listSize = 0;
     }
 
-    Deque<T> & operator= (Deque<T> & rhs); // copy operator=
-    Deque<T> & operator= (Deque<T> && rhs); // move operator=
+    Deque<T> & operator= (Deque<T> & rhs) {
+        if (this == &rhs) {
+            return *this;
+        }
+
+        erase();
+        deepCopy(rhs);
+
+        return *this;
+    } // copy operator=
+
+    Deque<T> & operator= (Deque<T> && rhs) {
+        // Self-assignment detection
+        if (&rhs == this)
+            return *this;
+
+        // Release any resource we're holding
+        erase();
+
+        // Transfer ownership of a.m_ptr to m_ptr
+        size = rhs.size;
+        rhs.size = 0;
+        head = rhs.head;
+        rhs.head = nullptr;
+        tail = rhs.tail;
+        rhs.tail = nullptr;
+
+        return *this;
+    } // move operator=
+
 
     // Operations on Deque 
     void pushHead(T data) {
@@ -394,17 +419,14 @@ public:
 
     int _size() { return listSize; }
 
-
-
-    template<class T>
     void deepCopy(const Deque<T> & rhs) {
         Node<T> *newNode = new Node<T>;
         Node<T> *current = rhs.head; //current points to the list to be copied
-        size = rhs.size;//copy the head node
-        copy = newNode; //create the node
-        copy->data = current->data; //copy the info
-        copy->next = current->next; //set the link field of the node to nullptr
-        copy->prev = current->prev;
+        listSize = rhs.listSize;//copy the head node
+        head = newNode; //create the node
+        head->data = current->data; //copy the info
+        head->next = current->next; //set the link field of the node to nullptr
+        head->prev = current->prev;
         tail = head; //make tail point to the head node
 
         current = current->next; //make current point to the next node

@@ -21,5 +21,11 @@
     <ClCompile Include="Linked List.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LAB10.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

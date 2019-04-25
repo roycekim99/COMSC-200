@@ -1,3 +1,11 @@
+///**********************************************************************************
+/// Description: AS10 Driver Class
+/// Author: Royce Kim
+/// COMSC 200 Section 5001
+/// Date: April 20, 2019
+/// Status : Complete 
+///***********************************************************************************
+
 #include <iostream>
 #include <chrono>
 #include "Linked List.cpp"
