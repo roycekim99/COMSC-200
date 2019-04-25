@@ -1,5 +1,11 @@
-/* C++ implementation to convert infix expression to postfix*/
-// Note that here we use std::stack  for Stack operations 
+///**********************************************************************************
+/// Description: Infix to PostFix Calculator
+/// Author: Royce Kim
+/// COMSC 200 Section 5001
+/// Date: April 24, 2019
+/// Status : Complete 
+///***********************************************************************************
+
 #include <string>
 #include <stack>
 #include <queue>
@@ -12,21 +18,23 @@ int stackDisplaySize = 14;
 
 void display(std::stack<char> operators, string pstfx) {
     string op = "";
-    
+
     cout << "Operator: " << setw(operators.size()) << left;
-    
+
     for (int i = 0; i < operators.size(); i++) {
-        op += operators.top();
+        string tempFront = "";
+        tempFront += operators.top();
+        tempFront += op;
+        op = tempFront;
         operators.pop();
     }
     cout << op << "\tOutput: " << setw(pstfx.size()) << pstfx << endl;
 }
 
 
-//Function to return precedence of operators 
+//Function to return strength of operators 
 int prec(char c) {
-    switch (c) 
-    {
+    switch (c) {
     case '^':
         return 3;
     case '*':
@@ -41,8 +49,7 @@ int prec(char c) {
     }
 }
 
-// The main function to convert infix expression 
-//to postfix expression 
+//toPostfix
 std::string infixToPostfix(string s) {
     std::stack<char> st;
 
@@ -50,28 +57,35 @@ std::string infixToPostfix(string s) {
     string postfix;
 
     for (int i = 0; i < l; i++) {
-        if ((s[i] >= 'a' && s[i] <= 'z') || 
-            (s[i] >= 'A' && s[i] <= 'Z') || 
-            (s[i] >= '0' && s[i] <= '9')) {    // If the scanned character is an operand, add it to output string. 
+
+        if ((s[i] >= 'a' && s[i] <= 'z') ||
+            (s[i] >= 'A' && s[i] <= 'Z') ||
+            (s[i] >= '0' && s[i] <= '9')) {    // If character is an operand, add it to output string. 
             postfix += s[i];
-        }  
-        else if (s[i] == '(') {                 // If the scanned character is an ‘(‘, push it to the stack. 
+        }
+
+
+        else if (s[i] == '(') {                 // If the scanned character is an â€˜(â€˜, push it to the stack. 
             st.push(s[i]);
         }
-        else if (s[i] == ')') {                 // if ')', pop till ‘(‘ is encountered.             
-         
-            while (st.size() && st.top() != '(') {
+
+
+        else if (s[i] == ')') {                 // if ')', pop till â€˜(â€˜ is encountered.             
+
+            while (!st.empty() && st.top() != '(') {
                 char c = st.top();
                 st.pop();
                 postfix += c;
             }
-            while (st.size() && st.top() == '(' ) {
+            while (!st.empty() && st.top() == '(') {
                 char c = st.top();
                 st.pop();
             }
-        } 
-        else if(prec(s[i]) > 0){                //If operator
-            while (st.size() > 0 &&             //check to see if stack is empty
+        }
+
+
+        else if (prec(s[i]) > 0) {                //If operator
+            while (!st.empty() &&             //check to see if stack is empty
                 (prec(s[i]) < prec(st.top()))) //continue to add to postfix until stack has higher prec val
             {
                 char c = st.top();
@@ -84,19 +98,19 @@ std::string infixToPostfix(string s) {
 
     }
     //Pop all the remaining elements from the stack 
-    while (st.size()) {
+    while (!st.empty()) {
         char c = st.top();
         st.pop();
         postfix += c;
     }
 
-    cout << postfix << endl;
+    cout << "\nPostfix => " << postfix << endl;
     return postfix;
 
 }
 
 /*
-display
+display for prostfix calc
 */
 void display(std::stack<int> numb, std::queue <char> op) {
     std::string temp;
@@ -152,12 +166,14 @@ int getState(const char& inputChar) {
     return state;
 }
 
+//postfix calculation
 void calculateInput(string userInput) {
     std::stringstream ss;
     std::stack <int> numbers;
     std::queue <char> items;
 
     int prev1, prev2;
+    int stepCount = 1;
     int temp = 0;
 
     //move inputs to a queue
@@ -166,8 +182,6 @@ void calculateInput(string userInput) {
     }
     stackDisplaySize = (items.size() < 14) ? items.size() * 2 : 28;
 
-    std::cout << std::setw(stackDisplaySize) << std::right << "Operand Stack";
-    std::cout << std::setw(stackDisplaySize * 2) << std::right << "Postfix Queue" << std::endl;
     //if userinput != q or Q, start pushing to stacks and queues
 
     for (int i = 0; toupper(userInput.at(0)) != 'Q' && i < userInput.size(); i++) {
@@ -194,34 +208,49 @@ void calculateInput(string userInput) {
 
             switch (items.front()) {
             case '^':
+            {
                 items.pop();
                 temp = prev2 * prev1;
                 numbers.push(temp);
-                std::cout << "= " << prev2 << " ^ " << prev1 << std::endl;
+                std::cout << "Step " << stepCount << ": " << temp << " = " << prev2 << " ^ " << prev1 << std::endl;
+                stepCount++;
+            }
             case '+':
+            {
                 items.pop();
                 temp = prev2 + prev1;
                 numbers.push(temp);
-                std::cout << "= " << prev2 << " + " << prev1 << std::endl;
+                std::cout << "Step " << stepCount << ": " << temp << " = " << prev2 << " + " << prev1 << std::endl;
+                stepCount ++;
                 break;
+            }
             case'-':
+            {
                 items.pop();
                 temp = prev2 - prev1;
                 numbers.push(temp);
-                std::cout << "= " << prev2 << " - " << prev1 << std::endl;
+                std::cout << "Step " << stepCount << ": " << temp << " = " << prev2 << " - " << prev1 << std::endl;
+                stepCount ++;
                 break;
+            }
             case'/':
+            {
                 items.pop();
                 temp = prev2 / prev1;
                 numbers.push(temp);
-                std::cout << "= " << prev2 << " / " << prev1 << std::endl;
+                std::cout << "Step " << stepCount << ": " << temp << " = " << prev2 << " / " << prev1 << std::endl;
+                stepCount ++;
                 break;
+            }
             case'*':
+            {
                 items.pop();
                 temp = prev2 * prev1;
                 numbers.push(temp);
-                std::cout << "= " << prev2 << " * " << prev1 << std::endl;
+                std::cout << "Step " << stepCount << ": " << temp << " = " << prev2 << " * " << prev1 << std::endl;
+                stepCount ++;
                 break;
+            }
             default:
                 break;
             }
@@ -241,7 +270,7 @@ void calculateInput(string userInput) {
 //Driver program to test above functions 
 int main() {
     string exp;
-    
+
     cout << "Enter an expression: ";
     getline(cin, exp);
 
@@ -249,4 +278,3 @@ int main() {
 
     return 0;
 }
-// This code is contributed by Gautam Singh
